@@ -7,10 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.bean.ClienteDAO;
-import model.bean.FilmeDAO;
-import model.dao.Cliente;
-import model.dao.Filme;
+import model.bean.Cliente;
+import model.bean.Filme;
+import model.dao.ClienteDAO;
+import model.dao.FilmeDAO;
 
 import javax.swing.JLabel;
 import java.awt.Font;

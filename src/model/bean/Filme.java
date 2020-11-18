@@ -1,4 +1,4 @@
-package model.dao;
+package model.bean;
 
 public class Filme {
 	private int id_filme;

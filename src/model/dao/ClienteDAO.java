@@ -1,11 +1,11 @@
-package model.bean;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import connection.ConnectionFactory;
-import model.dao.Cliente;
+import model.bean.Cliente;
 
 
 public class ClienteDAO {

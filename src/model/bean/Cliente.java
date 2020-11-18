@@ -1,4 +1,4 @@
-package model.dao;
+package model.bean;
 
 public class Cliente {
 	private int id_cliente;
