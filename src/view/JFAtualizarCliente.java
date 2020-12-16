@@ -2,37 +2,37 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import model.bean.Cliente;
-import model.bean.Filme;
-import model.dao.ClienteDAO;
-import model.dao.FilmeDAO;
-
-import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-public class JFCadastroCliente extends JFrame {
+import model.bean.Cliente;
+import model.dao.ClienteDAO;
+
+public class JFAtualizarCliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFNome;
 	private JTextField textFEmail;
-
 	
+	private static int id;
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFCadastroCliente frame = new JFCadastroCliente();
+					JFAtualizarCliente frame = new JFAtualizarCliente(id);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,8 +43,9 @@ public class JFCadastroCliente extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param i 
 	 */
-	public JFCadastroCliente() {
+	public JFAtualizarCliente(int id) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 324);
 		contentPane = new JPanel();
@@ -52,10 +53,24 @@ public class JFCadastroCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Cadastrar clientes ");
+		JLabel lblNewLabel = new JLabel("Alterar clientes");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel.setBounds(24, 11, 170, 26);
 		contentPane.add(lblNewLabel);
+		
+		
+		ClienteDAO cdao = new ClienteDAO();
+		Cliente c = cdao.read(id);
+		
+		JLabel lblNewLabel_7 = new JLabel("ID do cliente");
+		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 11));
+		lblNewLabel_7.setBounds(166, 38, 89, 14);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblId = new JLabel("New label");
+		lblId.setBounds(240, 38, 46, 14);
+		contentPane.add(lblId);
+		
 		
 		JLabel lblNewLabel_1 = new JLabel("Nome");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
@@ -87,27 +102,41 @@ public class JFCadastroCliente extends JFrame {
 		contentPane.add(idade);
 		
 		
-		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Cliente c = new Cliente();
-				ClienteDAO dao = new ClienteDAO();
-				c.setNome(textFNome.getText());
-				c.setEmail(textFEmail.getText());
-				c.setIdade((Integer.parseInt(idade.getValue().toString())));
-			
-				dao.create(c);
-			}
-		});
-		btnCadastrar.setFont(new Font("Arial", Font.PLAIN, 14));
-		btnCadastrar.setBounds(30, 251, 122, 23);
-		contentPane.add(btnCadastrar);
+		lblId.setText(String.valueOf(c.getId_cliente()));
+		textFNome.setText(c.getNome());
+		textFEmail.setText(c.getEmail());
+		idade.setValue(c.getIdade());
+		
+	    JButton btnAlterar = new JButton("Alterar");
+	    btnAlterar.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {		
+	    				Cliente c = new Cliente();
+	    				ClienteDAO dao = new ClienteDAO();
+	    			
+	    				c.setId_cliente(Integer.parseInt(lblId.getText()));
+	    			    c.setNome(textFNome.getText());
+	    			    c.setEmail(textFEmail.getText());
+	    				c.setIdade(Integer.parseInt(idade.getValue().toString()));
+	    				
+	    				dao.update(c);
+	    			}
+	    		});
+	    		btnAlterar.setBounds(10, 400, 89, 23);
+	    		contentPane.add(btnAlterar);
+
+		btnAlterar.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnAlterar.setBounds(21, 252, 101, 24);
+		contentPane.add(btnAlterar);
+		
+		
+		
 		
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnCancelar.setBounds(223, 252, 122, 23);
 		contentPane.add(btnCancelar);
+		
+	
 	}
-
 }

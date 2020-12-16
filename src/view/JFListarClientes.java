@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +20,8 @@ import model.dao.ClienteDAO;
 import model.dao.FilmeDAO;
 
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JFListarClientes extends JFrame {
 
@@ -77,30 +81,47 @@ public class JFListarClientes extends JFrame {
 		btnCadastrar.setBounds(63, 342, 113, 23);
 		contentPane.add(btnCadastrar);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(216, 342, 89, 23);
-		contentPane.add(btnExcluir);
 		
 		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.setBounds(364, 342, 89, 23);
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//verificar se tem linha selecionada 
+				if(jtCliente.getSelectedRow()!= -1) {
+					JFAtualizarCliente ac = new JFAtualizarCliente((int)jtCliente.getValueAt(jtCliente.getSelectedRow(), 0));
+					ac.setVisible(true);		
+				}else {
+					JOptionPane.showMessageDialog(null, "Selecione um cliente!");
+					
+				}
+				
+				readJTable();
+			}
+		});
+		
+		
+		btnAlterar.setBounds(231, 342, 89, 23);
 		contentPane.add(btnAlterar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBounds(371, 342, 89, 23);
+		contentPane.add(btnExcluir);
 		
 		readJTable();
 	}
 	
+	
 	public void readJTable() {
 		DefaultTableModel modelo = (DefaultTableModel) jtCliente.getModel();
 		modelo.setNumRows(0);
-		ClienteDAO cdao = new ClienteDAO();
+		ClienteDAO  cdao = new ClienteDAO();
 		for(Cliente c : cdao.read()) {
 			modelo.addRow(new Object[]{
 				c.getId_cliente(),
 				c.getNome(),
 				c.getEmail(),
-				c.getIdade()				
-			});
-				
+				c.getIdade()
+							
+			});		
 		}
-		
 	}
 }
