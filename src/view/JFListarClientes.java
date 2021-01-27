@@ -51,12 +51,12 @@ public class JFListarClientes extends JFrame {
 	 */
 	public JFListarClientes() {
 		addWindowFocusListener(new WindowFocusListener() {
-			public void windowGainedFocus(WindowEvent arg0) {
-				
+			public void windowGainedFocus(WindowEvent e) {
 			}
-			public void windowLostFocus(WindowEvent arg0) {
+			public void windowLostFocus(WindowEvent e) {
 			}
 		});
+	
 		setTitle("Listar clientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 415);
@@ -89,8 +89,8 @@ public class JFListarClientes extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFCadastroFilme cf = new JFCadastroFilme();
-				cf.setVisible(true);
+				JFCadastroCliente cc = new JFCadastroCliente();
+				cc.setVisible(true);
 					
 			}
 		});

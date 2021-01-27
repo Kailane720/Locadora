@@ -46,7 +46,7 @@ public class JFAtualizarCliente extends JFrame {
 	 * @param i 
 	 */
 	public JFAtualizarCliente(int id) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 324);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -119,6 +119,7 @@ public class JFAtualizarCliente extends JFrame {
 	    				c.setIdade(Integer.parseInt(idade.getValue().toString()));
 	    				
 	    				dao.update(c);
+	    				dispose();
 	    			}
 	    		});
 	    		btnAlterar.setBounds(10, 400, 89, 23);
@@ -129,13 +130,29 @@ public class JFAtualizarCliente extends JFrame {
 		contentPane.add(btnAlterar);
 		
 		
+	
+		JButton btnNewButton = new JButton("Limpar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFNome.setText(null);
+				textFEmail.setText(null);
+                idade.setValue(0);
+									
+					}		
+		});
+		btnNewButton.setBounds(134, 254, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Cancelar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(260, 254, 89, 23);
+		contentPane.add(btnNewButton_1);
 		
 		
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 14));
-		btnCancelar.setBounds(223, 252, 122, 23);
-		contentPane.add(btnCancelar);
 		
 	
 	}
