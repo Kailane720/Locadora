@@ -20,6 +20,10 @@ import model.dao.FilmeDAO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class JFListarFilmes extends JFrame {
 
@@ -42,12 +46,21 @@ public class JFListarFilmes extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public JFListarFilmes() {
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+				readJTable();
+			}
+			public void windowLostFocus(WindowEvent e) {
+			}
+		});
+		
+		
+	
+		
 		setTitle("Listar filmes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 654, 337);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,6 +90,12 @@ public class JFListarFilmes extends JFrame {
 		scrollPane.setViewportView(jtFilme);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					JFCadastroFilme cf = new JFCadastroFilme();
+					cf.setVisible(true);
+			}
+		});
 		btnCadastrar.setBounds(21, 264, 89, 23);
 		contentPane.add(btnCadastrar);
 		
@@ -97,7 +116,7 @@ public class JFListarFilmes extends JFrame {
 		});
 		
 		
-		btnAlterar.setBounds(168, 264, 89, 23);
+		btnAlterar.setBounds(140, 264, 89, 23);
 		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -121,8 +140,17 @@ public class JFListarFilmes extends JFrame {
 				
 			}
 		});
-		btnExcluir.setBounds(313, 264, 89, 23);
+		btnExcluir.setBounds(273, 264, 89, 23);
 		contentPane.add(btnExcluir);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(395, 262, 89, 23);
+		contentPane.add(btnCancelar);
 		
 		readJTable();
 	}

@@ -198,6 +198,18 @@ public class JFAtualizarFilme extends JFrame {
 		contentPane.add(btnAlterar);
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+						txtTitulo.setText(null);
+						txtSinopse.setText(null);
+						txtCategoria.setText(null);
+						spTempo.setValue(0);
+						imagem.clearSelection();
+						audio.clearSelection();		
+							
+						}		
+		
+		});
 		btnLimpar.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnLimpar.setBounds(137, 400, 89, 23);
 		contentPane.add(btnLimpar);
